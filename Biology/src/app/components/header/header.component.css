@@ -1,0 +1,27 @@
+mat-toolbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.toolbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.flex-spacer {
+    flex: 1;
+}
+
+.space {
+    display: flex;
+    align-items: center;
+}
+  
+.space span {
+    margin-right: 10px;
+}

@@ -1,0 +1,69 @@
+<div class="search-bar-container">
+    <form [formGroup]="searchForm">
+      <mat-form-field class="database-selector">
+        <mat-label>Select Database</mat-label>
+        <mat-select formControlName="selectedDatabase" (selectionChange)="updateFieldOptionsAndFetchData()">
+          <mat-option *ngFor="let db of databases" [value]="db">{{ db }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <div formArrayName="fields">
+        <div *ngFor="let field of fields.controls; let i = index" [formGroupName]="i" class="field-group">
+          <mat-form-field class="operator-field" *ngIf="i > 0">
+            <mat-label>Logical Operator</mat-label>
+            <mat-select formControlName="operator">
+              <mat-option *ngFor="let op of logicalOperators" [value]="op">{{ op }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field class="operator-field" *ngIf="i === 0">
+            <mat-label>Logical Operator</mat-label>
+            <mat-select formControlName="operator">
+              <mat-option *ngFor="let op of firstFieldOption" [value]="op">{{ op }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field class="field-type">
+            <mat-label>Field Type</mat-label>
+            <mat-select formControlName="fieldType">
+              <mat-option *ngFor="let option of fieldOptions" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field class="field-value">
+            <input matInput formControlName="fieldValue" placeholder="Value">
+          </mat-form-field>
+  
+          <button *ngIf="i > 0" mat-button type="button" (click)="removeField(i)">Remove Field</button>
+        </div>
+      </div>
+  
+      <button mat-button type="button" (click)="addField()">Add Field</button>
+  
+      <div class="search-button">
+        <button mat-raised-button color="primary" type="submit" (click)="onSearch()">Search</button>
+      </div>
+    </form>
+  </div>
+  
+<table *ngIf="filteredData">
+  <thead>
+    <tr>
+      <th *ngFor="let column of fieldOptions">{{ column }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredData">
+      <td *ngFor="let column of fieldOptions">
+        <!-- Handle nested objects -->
+        <ng-container *ngIf="column === 'gene' || column === 'protein' || column === 'pathway'">
+          {{ item[column]?.id || '-' }}
+        </ng-container>
+        <ng-container *ngIf="column !== 'gene' && column !== 'protein' && column !== 'pathway'">
+          {{ item[column] !== undefined ? item[column] : '-' }}
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  

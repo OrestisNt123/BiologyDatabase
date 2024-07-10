@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <span>Biology Database</span>
+    <div class="toolbar-content" *ngIf="isLoggedIn">
+      <button mat-button routerLink="search">Search</button>
+      <button mat-button routerLink="genes">Genes</button>
+      <button mat-button routerLink="gene-proteins">Genes & Proteins</button>
+      <button mat-button routerLink="pathways">Pathways</button>
+      <button mat-button routerLink="protein-pathways">Proteins & Pathways</button>
+      <button mat-button routerLink="proteins">Proteins</button>
+      <span class="flex-spacer"></span> <!-- Flexible spacer -->
+      <div class="space">
+        <span>{{ admin }}</span>
+        <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </mat-toolbar>
+  

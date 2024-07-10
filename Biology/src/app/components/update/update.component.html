@@ -1,0 +1,23 @@
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let column of columns">{{ column }}</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows; let rowIndex = index">
+          <ng-container *ngFor="let column of columns">
+            <td>
+              <input type="text" [(ngModel)]="row[column]" [disabled]="row[column + 'Disabled']"/>
+            </td>
+          </ng-container>
+          <td>
+            <button (click)="updateRow(row)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column }}</th>
+      <th [hidden]="!isAdmin">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rows">
+      <td *ngFor="let column of columns">{{ row[column] || '-' }}</td>
+      <td [hidden]="!isAdmin">
+        <button mat-button color="warn" (click)="deleteRow(row)">Delete</button>
+      </td>
+      <td [hidden]="!isAdmin">
+        <button mat-button color="primary" (click)="updateRow(row)">Update</button>
+      </td>
+    </tr>
+    <button [hidden]="!isAdmin" button mat-button color="accent" class="add-button" (click)="addRow()">Add</button>
+  </tbody>
+</table>

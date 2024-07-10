@@ -1,0 +1,27 @@
+<div class="table-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let column of columns">{{ column | titlecase }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td *ngFor="let column of columns">
+            <input 
+              [id]="column" 
+              [formControlName]="column" 
+              [type]="getInputType(column)" 
+              [attr.min]="getInputType(column) === 'number' ? '0' : null"
+            >
+            <div class="error-message" *ngIf="form.get(column)?.invalid && (form.get(column)?.dirty || form.get(column)?.touched)">
+              <small *ngIf="form.get(column)?.errors?.['required']">This field is required.</small>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="submit" [disabled]="form.invalid">Add</button>
+  </form>
+</div>
